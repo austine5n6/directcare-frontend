@@ -86,7 +86,6 @@ export default {
       return this.$store.state.auth.status.loggedIn;
     },
     currentUser() {
-      return this.$store.state.auth.user;
     },
   },
   mounted() {
@@ -95,4 +94,3 @@ export default {
 };
 </script>
 
-<style></style>

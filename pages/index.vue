@@ -818,12 +818,12 @@
 <script>
 import Hero from "../components/Hero.vue";
 import LaptopCard from "../components/LaptopCard.vue";
-import Navbar from '../components/Navbar.vue';
+import Navbar from "../components/Navbar.vue";
 import Footer from "../shared/Footer.vue";
 
 export default {
   components: { LaptopCard, Navbar, Footer, Hero },
-    Herodata: () => ({
+  Herodata: () => ({
     property: {
       hp: "../static/hp_logo.png",
       dell: "../static/dell_logo.png",
@@ -877,6 +877,8 @@ document.addEventListener("scroll", function () {
 });
 </script>
 <script>
+
+
 var navMenuDiv = document.getElementById("nav-content");
 var navMenu = document.getElementById("nav-toggle");
 

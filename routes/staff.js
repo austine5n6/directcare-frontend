@@ -1,8 +1,9 @@
+const { authJwt } = require("../middleware")
+const dashboard = require('../controllers/staff/DashboardController')
 
 module.exports = (app) => {
-    
-    app.get('/all', (req, res) => {
-        res.send("This is all staff routes")
-    })
+
+    app.get('/status/dashboard', [authJwt.isStaff], dashboard.index)
+
 }
 

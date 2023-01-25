@@ -1,3 +1,8 @@
-exports.staffBoard = (req, res) => {
-    res.status(200).send("Staff Content.");
+exports.index = async (req, res) => {
+    try {
+        return res.status(200).json({ message: 'Welcome to staff dashboard' })
+    } catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+
 };

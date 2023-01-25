@@ -13,8 +13,9 @@ const jwt = require("jsonwebtoken")
 const bcrypt = require("bcryptjs")
 
 exports.register = async (req, res) => {
+    
     try {
-        //validate the request data
+
         if (req.body.name === '' || req.body.email === '' || req.body.password === '') return res.status(500).json({message: "All field are required!"})
         
         

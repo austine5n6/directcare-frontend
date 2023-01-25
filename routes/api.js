@@ -2,7 +2,12 @@ const { verifySignUp } = require("../middleware")
 const authenticate = require("../controllers/authenticate")
 
 module.exports = function (app) {
+
+    require('./admin')(app)
+
     require('./staff')(app)
+
+    require('./patient')(app)
 
     app.use(function (req, res, next) {
         res.header(

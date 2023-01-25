@@ -1,8 +1,8 @@
 module.exports = {
     HOST: "localhost",
-    USER: "sqluser",
-    PASSWORD: "password",
-    DB: "directcare",
+    USER: "root",
+    PASSWORD: "",
+    DB: "health_care",
     dialect: "mysql",
     pool: {
         max: 5,
@@ -11,3 +11,5 @@ module.exports = {
         idle: 10000
     }
 };
+
+

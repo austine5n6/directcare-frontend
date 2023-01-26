@@ -8,10 +8,10 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "newconnect",
-            "database": "directcare",
-            "username": "sqluser",
-            "password": "password"
+            "name": "FirstMySQL Connection",
+            "database": "health_care",
+            "username": "root",
+            "password": ""
         }
     ]
 }

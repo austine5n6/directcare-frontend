@@ -79,20 +79,24 @@ exports.login = async (req, res) => {
         const token = jwt.sign({ id: user.id }, config.secret, {
             expiresIn: 86400, // 24 hours
         })
-
         let authorities = []
         const roles = await user.getRoles()
 
         for (let i = 0; i < roles.length; i++) {
-            authorities.push("ROLE_" + roles[i].name.toUpperCase())
+            authorities.push(roles[i].name)
         }
-
         req.session.token = token
+        
+        res.cookie('access_token', token, {
+            httpOnly:true
+        })
+
 
         return res.status(200).json({
             id: user.id,
             email: user.email,
-            roles: authorities,
+            role: authorities,
+            user: user,
             token
         })
 
@@ -106,10 +110,12 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
     try {
+        let user = req.body.name;
+        console.log(user)
         req.session = null
 
         return res.status(200).json({
-            message: "You've been signed out!"
+            message: "You've been signed out! " + req.body.name,
         })
     } catch (error) {
 

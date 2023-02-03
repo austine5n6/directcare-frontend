@@ -3,43 +3,64 @@ const config = require("../config/auth.js")
 const db = require("../models")
 const User = db.user
 
-verifyToken = (req, res, next) => {
-    let token = req.headers["x-access-token"]
-
+verifyToken = async (req, res, next) => {
+    // let token = req.headers["x-access-token"]
+    // const token = req.cookies.access_token;
+    // let token = req.headers['authorization']
+ 
+    const token = req.session.token;
     if (!token) {
-        return res.status(403).send({
+        return res.status(401).send({
             message: "No token was provided!"
         })
     }
 
-    jwt.verify(token, config.secret, (err, decoded) => {
+    jwt.verify(token, config.secret, (err, payload) => {
         if (err) {
-            return res.status(401).send({
-                message: "Unauthorized!"
+            return res.status(403).send({
+                message: "Unauthorized and/or Invalid Token!"
             })
         }
-
-        req.userId = decoded.id
-        next()
+        req.userId = payload.id
+        next();
     })
 }
 
 isAdmin = async (req, res, next) => {
     try {
-        const user = await User.findByPK(req.userId)
-        const roles = await user.getRoles()
-
-        for (let i = 0; i < roles.length; i++) {
-            if (roles[i].name === 'admin') {
-                return next()
-            }
-        }
-
-        return res.status(403).send({
-            message: "Unauthorized: Require Admin Role!"
+        const token = req.session.token;
+      if (!token) {
+        return res.status(401).send({
+            message: "No token was provided!"
         })
+    }
+    jwt.verify(token, config.secret, async (err, payload) => {
+        try {
+            if (err) {
+                return res.status(403).send({
+                    message: "Unauthorized and/or Invalid Token!"
+                })
+            }
+            let user = await User.findByPk(payload.id)
+                const roles = await user.getRoles()
+        
+            for (let i = 0; i < roles.length; i++) {
+                if (roles[i].name === 'admin') {
+                   next();
+                }
+            }
 
-    } catch (error) {
+            return res.status(403).send({
+                message: "Require Admin Role!"
+            })
+        }
+        catch (error) {
+            res.send(error.message)
+        }
+    })
+
+    }
+    catch (error) {
         return res.status(500).send({
             message: "Unable to validate user role!"
         })
@@ -48,40 +69,81 @@ isAdmin = async (req, res, next) => {
 
 isStaff = async (req, res, next) => {
     try {
-        const user = await User.findByPK(req.userId)
-        const roles = await user.getRoles()
-
-        for (let i = 0; i < roles.length; i++) {
-            if (roles[i].name === 'staff') {
-                return next()
-            }
-        }
-
-        return res.status(403).send({
-            message: "Require Staff Role!"
+        const token = req.session.token;
+      if (!token) {
+        return res.status(401).send({
+            message: "No token was provided!"
         })
+    }
 
-    } catch (error) {
+    jwt.verify(token, config.secret, async (err, payload) => {
+        try {
+            if (err) {
+                return res.status(403).send({
+                    message: "Unauthorized and/or Invalid Token!"
+                })
+            }
+            let user = await User.findByPk(payload.id)
+                const roles = await user.getRoles()
+        
+            for (let i = 0; i < roles.length; i++) {
+                if (roles[i].name === 'staff') {
+                   next();
+                }
+            }
+
+            return res.status(403).send({
+                message: "Require Staff Role!"
+            })
+        }
+        catch (error) {
+            res.send(error.message)
+        }
+    })
+    
+    } 
+    catch (error) {
         return res.status(500).send({
-            message: "Unable to validate Staff role!"
+            message: "Unable to validate user role!"
         })
     }
 }
 
-isPatient = async (req, res, next) => {
+isPatient = (req, res, next) => {
     try {
-        const user = await User.findByPK(req.userId)
-        const roles = await user.getRoles()
-
-        for (let i = 0; i < roles.length; i++) {
-            if (roles[i].name === "patient") {
-                return next()
-            }
-        }
-
-        return res.status(403).send({
-            message: "Require Patient Role!"
+        const token = req.session.token;
+      if (!token) {
+        return res.status(401).send({
+            message: "No token was provided!"
         })
+    }
+
+    jwt.verify(token, config.secret, async (err, payload) => {
+        try {
+            if (err) {
+                return res.status(403).send({
+                    message: "Unauthorized and/or Invalid Token!"
+                })
+            }
+            let user = await User.findByPk(payload.id)
+                const roles = await user.getRoles()
+        
+            for (let i = 0; i < roles.length; i++) {
+                if (roles[i].name === 'patient') {
+                   next();
+                }
+            }
+
+            return res.status(403).send({
+                message: "Require Patient Role!"
+            })
+
+        }
+        catch (error) {
+             res.send(error.message)
+        }
+    })
+    
 
     } catch (error) {
         return res.status(500).send({

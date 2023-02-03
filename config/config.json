@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "health_care",
+    "username": "sqluser",
+    "password": "password",
+    "database": "healthcare",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

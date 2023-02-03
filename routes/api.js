@@ -9,13 +9,13 @@ module.exports = function (app) {
 
     require('./patient')(app)
 
-    app.use(function (req, res, next) {
-        res.header(
-            "Access-Control-Allow-Headers",
-            "Origin, Content-Type, Accept"
-        )
-        next()
-    })
+    // app.use(function (req, res, next) {
+    //     res.header(
+    //         "Access-Control-Allow-Headers",
+    //         "Origin, Content-Type, Accept"
+    //     )
+    //     next()
+    // })
 
     app.get('/', function (req, res, next) {
         res.json({ message: "Connection successful!" })
@@ -29,7 +29,7 @@ module.exports = function (app) {
 
     app.post("/login", authenticate.login)
 
-    app.post("/logout", authenticate.logout)
+    app.get("/logout", authenticate.logout)
 }
 
 

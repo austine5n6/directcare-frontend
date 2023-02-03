@@ -3,6 +3,6 @@ const dashboard = require("../controllers/admin/DashboardController")
 
 module.exports = (app) => {
 
-    app.get('/admin/dashboard', [authJwt.isAdmin], dashboard.index)
+    app.get('/admin/dashboard', authJwt.isAdmin, dashboard.index)
 
 }

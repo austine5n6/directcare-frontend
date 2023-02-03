@@ -21,19 +21,22 @@ module.exports = {
           name: 'Administrator',
           email: 'admin@gmail.com',
           password: bcrypt.hashSync('password'),
-          createdAt: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
-          name: 'Statff',
+          name: 'Staff',
           email: 'staff@gmail.com',
           password: bcrypt.hashSync('password'),
-          createdAt: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
           name: 'Patient',
           email: 'patient@gmail.com',
           password: bcrypt.hashSync('password'),
-          createdAt: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ])
   },

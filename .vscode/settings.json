@@ -9,9 +9,9 @@
             "port": 3306,
             "driver": "MySQL",
             "name": "FirstMySQL Connection",
-            "database": "health_care",
-            "username": "root",
-            "password": ""
+            "database": "healthcare",
+            "username": "sqluser",
+            "password": "password"
         }
     ]
 }

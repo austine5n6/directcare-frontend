@@ -40,9 +40,9 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-
 db.user = require("../models/user.js")(sequelize, Sequelize);
 db.role = require("../models/role.js")(sequelize, Sequelize);
+db.medication = require("../models/medicationlist.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -54,6 +54,16 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
+db.medication.belongsToMany(db.user, {
+  through: "administer_medications",
+  foreignKey: "medId",
+  otherKey: "userId"
+})
+db.user.belongsToMany(db.medication, {
+  through: "administer_medications",
+  foreignKey: "userId",
+  otherKey: "medId"
+})
 
 db.ROLES = ["user", "admin", "staff"];
 

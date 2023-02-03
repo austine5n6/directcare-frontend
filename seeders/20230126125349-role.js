@@ -16,15 +16,18 @@ module.exports = {
       [
         {
           name: 'admin',
-          createdAt: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
           name: 'staff',
-          createdAt: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         },
         {
           name: 'patient',
-          createdAt: new Date()
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ])
   },
